@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Da quanto è con noi</title>
+<meta name="description" content="Quanto tempo è passato dalla nascita, aggiornato al secondo.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎀</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FCF8F9;      /* latte */
+    --ink: #3A1E34;     /* prugna */
+    --muted: #86707F;   /* malva */
+    --accent: #B5375F;  /* lampone */
+    --ruler: #F6CFDA;   /* confetto */
+    --tick: rgba(58, 30, 52, .42);
+    --line: #EFDFE5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1C1117;
+      --ink: #F7EAF0;
+      --muted: #B49CAA;
+      --accent: #F28DAE;
+      --ruler: #4A2639;
+      --tick: rgba(247, 234, 240, .38);
+      --line: #34212C;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main {
+    max-width: 38rem;
+    margin: 0 auto;
+    padding: clamp(2.5rem, 8vw, 4.5rem) 1.25rem 3rem;
+  }
+
+  h1 {
+    font-family: "Young Serif", Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(2.6rem, 12vw, 4.25rem);
+    line-height: 1.04;
+    letter-spacing: -.015em;
+    margin: 0 0 .9rem;
+    text-wrap: balance;
+  }
+
+  .eta {
+    margin: 0;
+    font-size: clamp(1.12rem, 4.4vw, 1.35rem);
+    line-height: 1.5;
+    max-width: 34ch;
+  }
+  .eta b {
+    color: var(--accent);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Il metro della crescita */
+  .metro {
+    position: relative;
+    margin: 2.75rem 0 0;
+    padding: 0 0 0 3.6rem;
+    list-style: none;
+  }
+  .metro::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2.6rem;
+    border-radius: .35rem;
+    background:
+      repeating-linear-gradient(to bottom, var(--tick) 0 2px, transparent 2px 50px) right top / 62% 100% no-repeat,
+      repeating-linear-gradient(to bottom, var(--tick) 0 1px, transparent 1px 10px) right top / 34% 100% no-repeat,
+      var(--ruler);
+    animation: cresci 1.2s cubic-bezier(.2, .7, .2, 1) .15s both;
+  }
+  @keyframes cresci {
+    from { clip-path: inset(100% 0 0 0); }
+    to   { clip-path: inset(0 0 0 0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .metro::before { animation: none; }
+  }
+
+  .metro li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: 1rem;
+    padding: .9rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .metro li:first-child { padding-top: .35rem; }
+
+  .unita { font-weight: 600; }
+  .nota {
+    display: block;
+    font-weight: 400;
+    color: var(--muted);
+    font-size: .9rem;
+    line-height: 1.35;
+  }
+  .nota:empty { display: none; }
+
+  .num {
+    font-weight: 800;
+    font-size: clamp(1.55rem, 7.2vw, 2.3rem);
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -.01em;
+    text-align: right;
+  }
+  .live .num { color: var(--accent); }
+
+  h2 {
+    font-family: "Young Serif", Georgia, serif;
+    font-weight: 400;
+    font-size: 1.55rem;
+    line-height: 1.2;
+    margin: 3.25rem 0 .5rem;
+  }
+
+  .traguardi { list-style: none; margin: 0; padding: 0; }
+  .traguardi li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 1rem;
+    padding: .75rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .traguardi strong { font-weight: 800; }
+  .traguardi .tra { font-weight: 600; color: var(--accent); white-space: nowrap; }
+  .traguardi .quando { grid-column: 1 / -1; color: var(--muted); font-size: .95rem; }
+
+  footer { margin-top: 2.5rem; color: var(--muted); font-size: .9rem; }
+  footer p { margin: 0; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1 id="nome">La nostra bimba</h1>
+    <p class="eta">è con noi da <span id="frase">…</span>.</p>
+  </header>
+
+  <noscript><p>Per vedere il contatore serve JavaScript attivo nel browser.</p></noscript>
+
+  <ul class="metro" aria-label="Tempo trascorso dalla nascita">
+    <li class="live"><span class="unita">secondi<span class="nota" id="n-secondi"></span></span><span class="num" id="secondi">–</span></li>
+    <li><span class="unita">minuti<span class="nota" id="n-minuti"></span></span><span class="num" id="minuti">–</span></li>
+    <li><span class="unita">ore<span class="nota" id="n-ore"></span></span><span class="num" id="ore">–</span></li>
+    <li><span class="unita">giorni<span class="nota" id="n-giorni"></span></span><span class="num" id="giorni">–</span></li>
+    <li><span class="unita">settimane<span class="nota" id="n-settimane"></span></span><span class="num" id="settimane">–</span></li>
+    <li><span class="unita">mesi<span class="nota" id="n-mesi"></span></span><span class="num" id="mesi">–</span></li>
+    <li><span class="unita">anni<span class="nota" id="n-anni"></span></span><span class="num" id="anni">–</span></li>
+  </ul>
+
+  <section id="sez-traguardi">
+    <h2>Prossimi traguardi</h2>
+    <ul class="traguardi" id="traguardi"></ul>
+  </section>
+
+  <footer><p id="nata"></p></footer>
+</main>
+
+<script>
+// ================= CONFIGURAZIONE =================
+const NOME = "La nostra bimba";                 // nome o soprannome da mostrare
+const NASCITA = "2026-08-27T17:28:00+02:00";    // data e ora di nascita (+02:00 = ora legale italiana)
+const FUSO = "Europe/Rome";                     // fuso su cui contare giorni, mesi e anni
+// ==================================================
+
+const nascita = new Date(NASCITA).getTime();
+const MIN = 6e4, H = 36e5, G = 864e5;
+
+// --- Ora "da muro" a Roma, indipendente dal fuso di chi apre la pagina ---
+const fmtParti = new Intl.DateTimeFormat("en-GB", {
+  timeZone: FUSO, hourCycle: "h23",
+  year: "numeric", month: "numeric", day: "numeric",
+  hour: "numeric", minute: "numeric", second: "numeric"
+});
+function orologio(ms) {
+  const o = {};
+  for (const p of fmtParti.formatToParts(new Date(ms))) o[p.type] = +p.value;
+  return o;
+}
+function scarto(ms) { // differenza tra ora di Roma e UTC in quell'istante
+  const o = orologio(ms);
+  return Date.UTC(o.year, o.month - 1, o.day, o.hour, o.minute, o.second) - Math.floor(ms / 1000) * 1000;
+}
+function istante(y, m, d, h, mi, s) { // da ora di Roma a istante assoluto (gestisce ora legale/solare)
+  const t = Date.UTC(y, m - 1, d, h, mi, s);
+  let ms = t - scarto(t);
+  const s2 = scarto(ms);
+  if (t - s2 !== ms) ms = t - s2;
+  return ms;
+}
+
+const B = orologio(nascita);
+
+// Istante in cui compie n mesi (stesso giorno e ora della nascita)
+function compieMesi(n) {
+  const tot = B.month - 1 + n;
+  const y = B.year + Math.floor(tot / 12), m = (tot % 12) + 1;
+  const ultimo = new Date(Date.UTC(y, m, 0)).getUTCDate();
+  return istante(y, m, Math.min(B.day, ultimo), B.hour, B.minute, B.second);
+}
+function mesiCompiuti(now) {
+  const o = orologio(now);
+  let n = (o.year - B.year) * 12 + (o.month - B.month);
+  while (n > 0 && compieMesi(n) > now) n--;
+  return Math.max(n, 0);
+}
+// Stesso orario di "base", k giorni di calendario dopo
+function piuGiorni(base, k) {
+  const o = orologio(base);
+  const u = new Date(Date.UTC(o.year, o.month - 1, o.day + k));
+  return istante(u.getUTCFullYear(), u.getUTCMonth() + 1, u.getUTCDate(), o.hour, o.minute, o.second);
+}
+function giorniCompiuti(base, now) {
+  let k = Math.max(0, Math.floor((now - base) / G));
+  while (k > 0 && piuGiorni(base, k) > now) k--;
+  while (piuGiorni(base, k + 1) <= now) k++;
+  return k;
+}
+function distanzaGiorni(a, b) { // giorni di calendario tra due istanti, a Roma
+  const x = orologio(a), y = orologio(b);
+  return Math.round((Date.UTC(y.year, y.month - 1, y.day) - Date.UTC(x.year, x.month - 1, x.day)) / G);
+}
+
+function calcola(adesso) {
+  const now = Math.max(adesso, nascita);
+  const ms = now - nascita;
+  const giorni = giorniCompiuti(nascita, now);
+  const mesi = mesiCompiuti(now);
+  const baseMese = compieMesi(mesi);
+  const gResto = giorniCompiuti(baseMese, now);
+  let r = now - piuGiorni(baseMese, gResto);
+  const h = Math.floor(r / H); r -= h * H;
+  const m = Math.floor(r / MIN); r -= m * MIN;
+  const anni = Math.floor(mesi / 12);
+  return {
+    now,
+    secondi: Math.floor(ms / 1000),
+    minuti: Math.floor(ms / MIN),
+    ore: Math.floor(ms / H),
+    giorni,
+    settimane: Math.floor(giorni / 7),
+    mesi,
+    anni,
+    eta: { anni, mesi: mesi % 12, giorni: gResto, ore: h, minuti: m, secondi: Math.floor(r / 1000) },
+    prossimoCompleanno: compieMesi((anni + 1) * 12)
+  };
+}
+
+const TRAGUARDI = [
+  ["1.000 ore", nascita + 1e3 * H],
+  ["50 giorni", piuGiorni(nascita, 50)],
+  ["100.000 minuti", nascita + 1e5 * MIN],
+  ["100 giorni", piuGiorni(nascita, 100)],
+  ["10 milioni di secondi", nascita + 1e7 * 1000],
+  ["6 mesi", compieMesi(6)],
+  ["10.000 ore", nascita + 1e4 * H],
+  ["1 anno", compieMesi(12)],
+  ["500 giorni", piuGiorni(nascita, 500)],
+  ["1 milione di minuti", nascita + 1e6 * MIN],
+  ["2 anni", compieMesi(24)],
+  ["1.000 giorni", piuGiorni(nascita, 1000)],
+  ["100 milioni di secondi", nascita + 1e8 * 1000],
+  ["5 anni", compieMesi(60)],
+  ["10 anni", compieMesi(120)],
+  ["18 anni", compieMesi(216)],
+  ["1 miliardo di secondi", nascita + 1e9 * 1000]
+].sort((a, b) => a[1] - b[1]);
+
+// --- Testi ---
+const nf = new Intl.NumberFormat("it-IT");
+const n = v => nf.format(v);
+const plur = (v, s, p) => `${n(v)} ${v === 1 ? s : p}`;
+const elenco = a => a.length > 1 ? a.slice(0, -1).join(", ") + " e " + a[a.length - 1] : a[0];
+const fmtData = new Intl.DateTimeFormat("it-IT", { timeZone: FUSO, weekday: "long", day: "numeric", month: "long", year: "numeric" });
+const fmtOra = new Intl.DateTimeFormat("it-IT", { timeZone: FUSO, hour: "2-digit", minute: "2-digit" });
+const quando = ms => `${fmtData.format(ms)} alle ${fmtOra.format(ms)}`;
+const tra = g => g <= 0 ? "oggi" : g === 1 ? "domani" : `tra ${n(g)} giorni`;
+
+if (typeof document !== "undefined") {
+  const $ = id => document.getElementById(id);
+  $("nome").textContent = NOME;
+  document.title = `${NOME}: da quanto è con noi`;
+  $("nata").textContent = `Nata ${quando(nascita)}.`;
+  let ultimiTraguardi = null;
+
+  function aggiorna() {
+    const c = calcola(Date.now());
+    for (const k of ["secondi", "minuti", "ore", "giorni", "settimane", "mesi", "anni"]) $(k).textContent = n(c[k]);
+
+    const e = c.eta;
+    const voci = [[e.anni, "anno", "anni"], [e.mesi, "mese", "mesi"], [e.giorni, "giorno", "giorni"],
+                  [e.ore, "ora", "ore"], [e.minuti, "minuto", "minuti"], [e.secondi, "secondo", "secondi"]];
+    let i = voci.findIndex(v => v[0] > 0);
+    if (i < 0) i = voci.length - 1;
+    $("frase").innerHTML = elenco(voci.slice(i).map(([v, s, p]) => `<b>${n(v)}</b> ${v === 1 ? s : p}`));
+
+    $("n-giorni").textContent = `oggi è il suo ${n(c.giorni + 1)}° giorno`;
+    const rs = c.giorni % 7;
+    $("n-settimane").textContent = rs === 0 ? "compiute oggi" : `e ${plur(rs, "giorno", "giorni")}`;
+    $("n-mesi").textContent = (e.giorni === 0 && c.mesi > 0) ? "compiuti oggi" : `e ${plur(e.giorni, "giorno", "giorni")}`;
+    const ord = c.anni === 0 ? "primo" : `${c.anni + 1}°`;
+    $("n-anni").textContent = `${ord} compleanno ${tra(distanzaGiorni(c.now, c.prossimoCompleanno))}`;
+
+    const prossimi = TRAGUARDI.filter(t => t[1] > c.now).slice(0, 3);
+    const html = prossimi.map(([nome, t]) =>
+      `<li><strong>${nome}</strong><span class="tra">${tra(distanzaGiorni(c.now, t))}</span><span class="quando">${quando(t)}</span></li>`
+    ).join("");
+    if (html !== ultimiTraguardi) {
+      $("traguardi").innerHTML = html;
+      $("sez-traguardi").hidden = !html;
+      ultimiTraguardi = html;
+    }
+  }
+
+  (function ciclo() {
+    aggiorna();
+    setTimeout(ciclo, 1000 - (Date.now() % 1000) + 10); // allineato al cambio di secondo
+  })();
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) aggiorna(); });
+}
+
+if (typeof module !== "undefined") module.exports = { calcola, TRAGUARDI, quando };
+</script>
+</body>
+</html>
